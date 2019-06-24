@@ -1,16 +1,17 @@
 import React from 'react';
-import { Box } from '../components/box';
+import { Box } from '../../components/box';
+import { Container } from './styles'
 
 import { connect } from 'react-redux';
 
 export function Home({props, addBox, updateInput}) {
     console.log(props)
     return (
-        <>   
+        <Container> 
             <input  type="text" value={props.inputValue} onChange={(event)=>updateInput(event.target)}/>
             <button onClick={event => addBox(event)} onClick={addBox}>ok</button>
             {props.boxes.map(element => <Box>{element.author}</Box>)}
-        </>
+        </Container>
     );
 }
 
