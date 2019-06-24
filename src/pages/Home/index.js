@@ -4,33 +4,28 @@ import { Container } from './styles'
 
 import { connect } from 'react-redux';
 
-export function Home({props, addBox, updateInput}) {
-    console.log(props)
+import * as BoxesActions from '../../store/actions/boxes';
+
+export function Home({boxes, inputValue, dispatch}) {
+    console.log(inputValue)
     return (
         <Container> 
-            <input  type="text" value={props.inputValue} onChange={(event)=>updateInput(event.target)}/>
-            <button onClick={event => addBox(event)} onClick={addBox}>ok</button>
-            {props.boxes.map(element => <Box>{element.author}</Box>)}
+            <input  type="text" value={inputValue} onChange={(event)=>dispatch(BoxesActions.updateInput(event.target))}/>
+            <button onClick={event => dispatch(BoxesActions.addBox(event))}>ok</button>
+            {boxes.map(element => <Box>{element.author}</Box>)}
         </Container>
     );
 }
 
 function mapStateToProps(state) {
-console.log(state)
-return {props: state}
-}
-
-function mapDispatchToProps(dispatch) {
+console.log(state.boxes.boxes)
     return {
-        addBox: ({target}) => {
-            console.log(target)
-            dispatch({type: 'ADD_BOX'})
-        },
-        updateInput: ({ value }) => {
-            console.log(value)
-            dispatch({type: 'UPDATE_INPUT', inputValue: value})
-        }
+        boxes: state.boxes.boxes,
+        inputValue: state.boxes.inputValue,
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+
+
+
+export default connect(mapStateToProps)(Home)
