@@ -4,5 +4,4 @@ export const GlobalStyle = createGlobalStyle`
 body{
     background-color: blue;
     height: 100%;
-}
-`;
+}`;

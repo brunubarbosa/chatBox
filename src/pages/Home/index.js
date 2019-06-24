@@ -1,17 +1,19 @@
 import React from 'react';
 import { Box } from '../../components/box';
-import { Container } from './styles'
+import { Container, Title } from './styles'
+import { InputText, Button } from '../../components/utils/'
 
 import { connect } from 'react-redux';
 
 import * as BoxesActions from '../../store/actions/boxes';
 
-export function Home({boxes, inputValue, dispatch}) {
-    console.log(inputValue)
+export function Home({boxes, inputValue, updateInput, addBox}) {
+    console.log(updateInput)
     return (
-        <Container> 
-            <input  type="text" value={inputValue} onChange={(event)=>dispatch(BoxesActions.updateInput(event.target))}/>
-            <button onClick={event => dispatch(BoxesActions.addBox(event))}>ok</button>
+        <Container>
+            <Title>MessageBox</Title>
+            <InputText value={inputValue} onChange={(event)=> updateInput(event)} />
+            <Button text="Adicionar" onClick={() => addBox()} />
             {boxes.map(element => <Box>{element.author}</Box>)}
         </Container>
     );
@@ -25,7 +27,10 @@ console.log(state.boxes.boxes)
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    updateInput: (event) => dispatch(BoxesActions.updateInput(event.target)),
+    addBox: () => dispatch(BoxesActions.addBox())
+})
 
 
-
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
