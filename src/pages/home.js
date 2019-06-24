@@ -3,12 +3,33 @@ import { Box } from '../components/box';
 
 import { connect } from 'react-redux';
 
-export function Home(props) {
+export function Home({props, addBox, updateInput}) {
     console.log(props)
-        return (
-            <Box></Box>
-        );
+    return (
+        <>   
+            <input  type="text" value={props.inputValue} onChange={(event)=>updateInput(event.target)}/>
+            <button onClick={event => addBox(event)} onClick={addBox}>ok</button>
+            {props.boxes.map(element => <Box>{element.author}</Box>)}
+        </>
+    );
 }
 
+function mapStateToProps(state) {
+console.log(state)
+return {props: state}
+}
 
-export default connect(state => {console.log(state); return {state}})(Home)
+function mapDispatchToProps(dispatch) {
+    return {
+        addBox: ({target}) => {
+            console.log(target)
+            dispatch({type: 'ADD_BOX'})
+        },
+        updateInput: ({ value }) => {
+            console.log(value)
+            dispatch({type: 'UPDATE_INPUT', inputValue: value})
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
