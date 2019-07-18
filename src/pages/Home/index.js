@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box } from '../../components/box';
 import { Container, Title } from './styles'
-import { InputText, Button } from '../../components/utils/'
+import { InputText, Button } from '../../components/utils/';
+import { FaThumbsUp, FaThumbsDown, FaTimes } from 'react-icons/fa'
 
 import { connect } from 'react-redux';
 
@@ -12,13 +13,19 @@ export function Home({boxes, inputValue, updateInput, addBox, closeBox, quantida
     return (
         <Container>
             <Title>MessageBox</Title>
-            <span>Total: {quantidade}</span>
-            <InputText value={inputValue} onChange={(event)=> updateInput(event)} />
-            <Button text="Adicionar" onClick={() => addBox()} />
-            {boxes.map(element => <Box key={element.id}>{element.author}{console.log(element.likes)}
-                <button onClick={() => closeBox(element.id)}>x</button>
-                <button onClick={() => likeBox(element.id)}>likes ({element.likes})</button>
-                <button onClick={() => unlikeBox(element.id)}>unline ({element.likes})</button>
+            <div>
+                <span>Total: {quantidade}</span>
+                <InputText value={inputValue} onChange={(event)=> updateInput(event)} />
+                <Button text="Adicionar" onClick={() => addBox()} />
+            </div>
+            {boxes.map(element => <Box key={element.id}>
+                <FaTimes color="#303030" cursor="pointer" onClick={() => closeBox(element.id)}>x</FaTimes>
+                <span>{element.author}</span>
+                <footer>
+                    <span>{element.likes}</span>
+                    <FaThumbsUp color="#42f557" cursor="pointer" onClick={() => likeBox(element.id)}>likes ({element.likes})</FaThumbsUp>
+                    <FaThumbsDown color="#f54242"  cursor="pointer" onClick={() => unlikeBox(element.id)}>unline ({element.likes})</FaThumbsDown>
+                </footer>
             </Box>)}
         </Container>
     );
