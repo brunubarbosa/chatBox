@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { ButtonStyle } from './styles'
+
 export const Button = ({text, onClick}) => (
-    <button
+    <ButtonStyle
         onClick={onClick ? onClick : ''}
     >
         {text}
-    </button>
+    </ButtonStyle>
 );
 
 export default Button;

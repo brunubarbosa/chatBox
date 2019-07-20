@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../components/box';
+import Box from '../../components/box';
 import { Container, Title } from './styles'
 import { InputText, Button } from '../../components/utils/';
 import { FaThumbsUp, FaThumbsDown, FaTimes } from 'react-icons/fa'
@@ -18,7 +18,8 @@ export function Home({boxes, inputValue, updateInput, addBox, closeBox, quantida
                 <InputText value={inputValue} onChange={(event)=> updateInput(event)} />
                 <Button text="Adicionar" onClick={() => addBox()} />
             </div>
-            {boxes.map(element => <Box key={element.id}>
+            {boxes.map(element =>
+            <Box key={element.id}>
                 <FaTimes color="#303030" cursor="pointer" onClick={() => closeBox(element.id)}>x</FaTimes>
                 <span>{element.author}</span>
                 <footer>
